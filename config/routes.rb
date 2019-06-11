@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-
-  get '*path', to: "application#react_app", constraints: ->(request) do
-    !request.xhr? && request.format.html?
-  end
-  
   resources :attractions
   resources :areas
   resources :cities
@@ -16,4 +11,7 @@ Rails.application.routes.draw do
   post '/copyItinerary', to: 'itineraries#copy'
   post '/itineraries/:id/nearest', to: 'itineraries#nearest'
 
+  get '*path', to: "application#react_app", constraints: ->(request) do
+    !request.xhr? && request.format.html?
+  end
 end

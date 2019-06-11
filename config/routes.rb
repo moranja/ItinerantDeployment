@@ -5,9 +5,7 @@ Rails.application.routes.draw do
     resources :areas
     resources :cities
     resources :plans
-    resources :itineraries#, constraints: ->(request) do
-    #   request.xhr? && !request.format.html?
-    # end
+    resources :itineraries
     resources :user_itineraries
     resources :users
 
@@ -15,7 +13,8 @@ Rails.application.routes.draw do
     post '/copyItinerary', to: 'itineraries#copy'
     post '/itineraries/:id/nearest', to: 'itineraries#nearest'
   end
-
+  # All xhr (i.e. fetches) requests get caught by the above and routed accordingly.
+  # Any html request however, gets sent through react router with the code below.
   get '*path', to: "application#react_app", constraints: ->(request) do
     !request.xhr? && request.format.html?
   end

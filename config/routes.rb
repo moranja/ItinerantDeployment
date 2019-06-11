@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  constraints( |request| request.xhr? && !request.format.html? ) do
+  constraints{|request| request.xhr? && !request.format.html? } do
     resources :attractions
     resources :areas
     resources :cities
